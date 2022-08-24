@@ -2,7 +2,7 @@ local BaseMotor = require(script.Parent.BaseMotor)
 
 --[=[
 	Motor representing a single value.
-	
+
 	See also: [BaseMotor](BaseMotor)
 
 	@class SingleMotor
@@ -12,12 +12,12 @@ SingleMotor.__index = SingleMotor
 
 --[=[
 	Creates a new SingleMotor.
-	
+
 	@param initialValue number
 	@param useImplicitConnections boolean -- Should connections to RunService be automatically managed?
 	@return SingleMotor
 ]=]
-function SingleMotor.new(initialValue, useImplicitConnections)
+function SingleMotor.new(initialValue: number, useImplicitConnections: boolean)
 	assert(initialValue, "Missing argument #1: initialValue")
 	assert(typeof(initialValue) == "number", "initialValue must be a number!")
 
@@ -67,7 +67,7 @@ end
 
 --[=[
 	Returns the current value of the SingleMotor.
-	
+
 	@return number
 ]=]
 function SingleMotor:getValue()

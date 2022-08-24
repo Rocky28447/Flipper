@@ -19,7 +19,7 @@ local isMotor = require(script.Parent.isMotor)
 	Motor representing a group of values.
 
 	Internally, this manages a bunch of "sub-motors" — allowing for nested values.
-	
+
 	See also: [BaseMotor](BaseMotor)
 
 	@class GroupMotor
@@ -60,7 +60,7 @@ end
 	@param useImplicitConnections boolean -- Should connections to RunService be automatically managed?
 	@return GroupMotor
 ]=]
-function GroupMotor.new(initialValues, useImplicitConnections)
+function GroupMotor.new(initialValues: { number }, useImplicitConnections: boolean)
 	assert(initialValues, "Missing argument #1: initialValues")
 	assert(typeof(initialValues) == "table", "initialValues must be a table!")
 	assert(not initialValues.step, "initialValues contains disallowed property \"step\". Did you mean to put a table of values here?")

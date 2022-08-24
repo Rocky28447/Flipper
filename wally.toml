@@ -1,9 +1,9 @@
 [package]
-name = "reselim/flipper"
-description = "A motion library for Roblox"
+name = "alreadypro/flipper"
+description = "A motion library for Roblox forked to add support for Tweens"
 license = "MIT"
-authors = ["Reselim"]
-version = "2.0.0"
+authors = ["AlreadyPro"]
+version = "2.0.1"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 include = ["default.project.json", "src"]

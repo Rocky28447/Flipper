@@ -25,7 +25,13 @@ Spring.__index = Spring
 	@param options SpringOptions
 	@return Spring
 ]=]
-function Spring.new(targetValue, options)
+
+export type SpringOptions = {
+	frequency: number?,
+	dampingRatio: number?,
+}
+
+function Spring.new(targetValue: number, options: SpringOptions?)
 	assert(targetValue, "Missing argument #1: targetValue")
 	options = options or {}
 
@@ -123,7 +129,7 @@ function Spring:step(state, dt)
 	end
 
 	local complete = math.abs(v1) < VELOCITY_THRESHOLD and math.abs(p1 - g) < POSITION_THRESHOLD
-	
+
 	return {
 		complete = complete,
 		value = complete and g or p1,

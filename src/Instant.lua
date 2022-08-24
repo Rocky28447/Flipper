@@ -12,7 +12,7 @@ Instant.__index = Instant
 	@param targetValue number
 	@return Instant
 ]=]
-function Instant.new(targetValue)
+function Instant.new(targetValue: number)
 	return setmetatable({
 		_targetValue = targetValue,
 	}, Instant)
