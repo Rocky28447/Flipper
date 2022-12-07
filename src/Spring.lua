@@ -34,7 +34,7 @@ export type SpringOptions = {
 function Spring.new(targetValue: number, options: SpringOptions?)
 	assert(targetValue, "Missing argument #1: targetValue")
 	options = options or {}
-	assert(options)
+	assert(options, "")
 
 	return setmetatable({
 		_targetValue = targetValue,

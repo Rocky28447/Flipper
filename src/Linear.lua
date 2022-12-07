@@ -28,7 +28,7 @@ function Linear.new(targetValue: number, options: LinearOptions?)
 	assert(targetValue, "Missing argument #1: targetValue")
 
 	options = options or {}
-	assert(options)
+	assert(options, "")
 
 	return setmetatable({
 		_targetValue = targetValue,
