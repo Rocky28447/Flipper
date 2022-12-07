@@ -10,11 +10,11 @@ Tween.ClassName = "Tween"
 Tween.__index = Tween
 
 export type TweenProperties = {
-	_TweenObject: NumberValue?,
-	_Tween: Tween?,
+	_tweenObject: NumberValue?,
+	_tween: Tween?,
 
-	_TargetValue: number,
-	_InitialValue: number | boolean,
+	_targetValue: number,
+	_initialValue: number | boolean,
 }
 
 function Tween.new(targetValue: number, tweenInfo: TweenInfo?)
@@ -23,24 +23,24 @@ function Tween.new(targetValue: number, tweenInfo: TweenInfo?)
 	local tweenObject = Instance.new("NumberValue")
 
 	local tweenProperties: TweenProperties = {
-		_TweenObject = tweenObject,
-		_Tween = TweenService:Create(tweenObject, tweenInfo or TWEEN_DEFAULT, { Value = targetValue }),
+		_tweenObject = tweenObject,
+		_tween = TweenService:Create(tweenObject, tweenInfo or TWEEN_DEFAULT, { Value = targetValue }),
 
-		_TargetValue = targetValue,
-		_InitialValue = false,
+		_targetValue = targetValue,
+		_initialValue = false,
 	}
 
 	return setmetatable(tweenProperties, Tween)
 end
 
 function Tween:Step(state, delta)
-	local tween = self._Tween
-	local tweenObject = self._TweenObject
+	local tween = self._tween
+	local tweenObject = self._tweenObject
 	local playbackState = tween.PlaybackState
 
-	if not self._InitialValue then
-		self._InitialValue = state.value
-		tweenObject.Value = self._InitialValue
+	if not self._initialValue then
+		self._initialValue = state.value
+		tweenObject.Value = self._initialValue
 	end
 
 	if playbackState == TWEEN_BEGIN or playbackState == TWEEN_PAUSED then
@@ -50,16 +50,16 @@ function Tween:Step(state, delta)
 		tweenObject:Destroy()
 		tween:Destroy()
 
-		self._TweenObject:Destroy()
-		self._Tween:Destroy()
+		self._tweenObject:Destroy()
+		self._tween:Destroy()
 
-		self._TweenObject = nil
-		self._Tween = nil
-		self._TargetValue = nil
-		self._InitialValue = nil
+		self._tweenObject = nil
+		self._tween = nil
+		self._targetValue = nil
+		self._initialValue = nil
 	end
 
-	while self._InitialValue and tweenObject.Value == state.value do
+	while self._initialValue and tweenObject.Value == state.value do
 		task.wait()
 	end
 
