@@ -1,6 +1,6 @@
 local RunService = game:GetService("RunService")
 
-local Signal = require(script.Parent.Signal)
+local Signal = require(script.Parent.Parent.Signal)
 
 local noop = function() end
 
@@ -34,8 +34,8 @@ end
 	@param handler (state: unknown) -> nil
 	@return Connection
 ]=]
-function BaseMotor:onStep(handler)
-	return self._onStep:connect(handler)
+function BaseMotor:OnStep(handler)
+	return self._onStep:Connect(handler)
 end
 
 --[=[
@@ -46,8 +46,8 @@ end
 	@param handler () -> nil
 	@return Connection
 ]=]
-function BaseMotor:onStart(handler)
-	return self._onStart:connect(handler)
+function BaseMotor:OnStart(handler)
+	return self._onStart:Connect(handler)
 end
 
 --[=[
@@ -58,8 +58,8 @@ end
 	@param handler () -> nil
 	@return Connection
 ]=]
-function BaseMotor:onComplete(handler)
-	return self._onComplete:connect(handler)
+function BaseMotor:OnComplete(handler)
+	return self._onComplete:Connect(handler)
 end
 
 --[=[
@@ -67,10 +67,10 @@ end
 
 	@return nil
 ]=]
-function BaseMotor:start()
+function BaseMotor:Start()
 	if not self._connection then
 		self._connection = RunService.RenderStepped:Connect(function(deltaTime)
-			self:step(deltaTime)
+			self:Step(deltaTime)
 		end)
 	end
 end
@@ -80,18 +80,18 @@ end
 
 	@return nil
 ]=]
-function BaseMotor:stop()
+function BaseMotor:Stop()
 	if self._connection then
 		self._connection:Disconnect()
 		self._connection = nil
 	end
 end
 
-BaseMotor.destroy = BaseMotor.stop
+BaseMotor.Destroy = BaseMotor.Stop
 
-BaseMotor.step = noop
-BaseMotor.getValue = noop
-BaseMotor.setGoal = noop
+BaseMotor.Step = noop
+BaseMotor.GetValue = noop
+BaseMotor.SetGoal = noop
 
 --[=[
 	Returns the type of motor. Used for isMotor.

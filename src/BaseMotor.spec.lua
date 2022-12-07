@@ -6,28 +6,28 @@ return function()
 	describe("connection management", function()
 		local motor = BaseMotor.new()
 
-		it("should hook up connections on :start()", function()
-			motor:start()
+		it("should hook up connections on :Start()", function()
+			motor:Start()
 			expect(typeof(motor._connection)).to.equal("RBXScriptConnection")
 		end)
 
-		it("should remove connections on :stop() or :destroy()", function()
-			motor:stop()
+		it("should remove connections on :Stop() or :Destroy()", function()
+			motor:Stop()
 			expect(motor._connection).to.equal(nil)
 		end)
 	end)
 
-	it("should call :step() with deltaTime", function()
+	it("should call :Step() with deltaTime", function()
 		local motor = BaseMotor.new()
 
 		local argumentsProvided
-		function motor:step(...)
+		function motor:Step(...)
 			argumentsProvided = { ... }
-			motor:stop()
+			motor:Stop()
 		end
 
-		motor:start()
-		
+		motor:Start()
+
 		local expectedDeltaTime = RunService.RenderStepped:Wait()
 
 		-- Give it another frame, because connections tend to be invoked later than :Wait() calls

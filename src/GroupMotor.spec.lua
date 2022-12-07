@@ -12,19 +12,19 @@ return function()
 
 		expect(motor._complete).to.equal(true)
 
-		motor:setGoal({
+		motor:SetGoal({
 			A = Instant.new(3),
-			B = Spring.new(4, { frequency = 7.5, dampingRatio = 1 })
+			B = Spring.new(4, { frequency = 7.5, dampingRatio = 1 }),
 		})
 
 		expect(motor._complete).to.equal(false)
 
-		motor:step(1/60)
+		motor:Step(1 / 60)
 
 		expect(motor._complete).to.equal(false)
 
 		for _ = 1, 0.5 * 60 do
-			motor:step(1/60)
+			motor:Step(1 / 60)
 		end
 
 		expect(motor._complete).to.equal(true)
@@ -36,18 +36,18 @@ return function()
 		}, false)
 
 		local bool = false
-		motor:onStart(function()
+		motor:OnStart(function()
 			bool = not bool
 		end)
 
-		motor:setGoal({
-			A = Instant.new(1)
+		motor:SetGoal({
+			A = Instant.new(1),
 		})
 
 		expect(bool).to.equal(true)
 
-		motor:setGoal({
-			A = Instant.new(1)
+		motor:SetGoal({
+			A = Instant.new(1),
 		})
 
 		expect(bool).to.equal(false)
@@ -59,7 +59,7 @@ return function()
 			B = 2,
 		}, false)
 
-		local value = motor:getValue()
+		local value = motor:GetValue()
 
 		expect(value.A).to.equal(1)
 		expect(value.B).to.equal(2)
@@ -75,7 +75,7 @@ return function()
 
 	it("should error when a single goal is provided to GroupMotor:step", function()
 		local success = pcall(function()
-			GroupMotor.new({ a = 1 }):setGoal(Instant.new(0))
+			GroupMotor.new({ a = 1 }):SetGoal(Instant.new(0))
 		end)
 
 		expect(success).to.equal(false)

@@ -28,6 +28,7 @@ function Linear.new(targetValue: number, options: LinearOptions?)
 	assert(targetValue, "Missing argument #1: targetValue")
 
 	options = options or {}
+	assert(options)
 
 	return setmetatable({
 		_targetValue = targetValue,
@@ -38,7 +39,7 @@ end
 --[=[
 	Advances the specified MotorState by `deltaTime * velocity` and returns a new MotorState.
 ]=]
-function Linear:step(state, dt)
+function Linear:Step(state, dt: number)
 	local position = state.value
 	local velocity = self._velocity -- Linear motion ignores the state's velocity
 	local goal = self._targetValue

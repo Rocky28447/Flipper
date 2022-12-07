@@ -44,22 +44,22 @@ end
 	@param deltaTime number
 	@return boolean -- Is the motor complete?
 ]=]
-function SingleMotor:step(deltaTime)
+function SingleMotor:Step(deltaTime)
 	if self._state.complete then
 		return true
 	end
 
-	local newState = self._goal:step(self._state, deltaTime)
+	local newState = self._goal:Step(self._state, deltaTime)
 
 	self._state = newState
-	self._onStep:fire(newState.value)
+	self._onStep:Fire(newState.value)
 
 	if newState.complete then
 		if self._useImplicitConnections then
-			self:stop()
+			self:Stop()
 		end
 
-		self._onComplete:fire()
+		self._onComplete:Fire()
 	end
 
 	return newState.complete
@@ -70,7 +70,7 @@ end
 
 	@return number
 ]=]
-function SingleMotor:getValue()
+function SingleMotor:GetValue()
 	return self._state.value
 end
 
@@ -80,14 +80,14 @@ end
 	@param goal Goal
 	@return nil
 ]=]
-function SingleMotor:setGoal(goal)
+function SingleMotor:SetGoal(goal)
 	self._state.complete = false
 	self._goal = goal
 
-	self._onStart:fire()
+	self._onStart:Fire()
 
 	if self._useImplicitConnections then
-		self:start()
+		self:Start()
 	end
 end
 

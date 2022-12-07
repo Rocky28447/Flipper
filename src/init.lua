@@ -18,7 +18,6 @@ export type Linear = typeof(Flipper.Linear.new(0))
 export type Spring = typeof(Flipper.Spring.new(0))
 export type Tween = typeof(Flipper.Tween.new(0))
 
-
 return Flipper :: {
 	SingleMotor: SingleMotor,
 	GroupMotor: GroupMotor,

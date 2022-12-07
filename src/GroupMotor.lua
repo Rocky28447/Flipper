@@ -63,7 +63,10 @@ end
 function GroupMotor.new(initialValues: { number }, useImplicitConnections: boolean)
 	assert(initialValues, "Missing argument #1: initialValues")
 	assert(typeof(initialValues) == "table", "initialValues must be a table!")
-	assert(not initialValues.step, "initialValues contains disallowed property \"step\". Did you mean to put a table of values here?")
+	assert(
+		not initialValues.step,
+		'initialValues contains disallowed property "step". Did you mean to put a table of values here?'
+	)
 
 	local self = setmetatable(BaseMotor.new(), GroupMotor)
 
@@ -76,7 +79,7 @@ function GroupMotor.new(initialValues: { number }, useImplicitConnections: boole
 	self._complete = true
 	self._motors = {}
 
-	for key, value in pairs(initialValues) do
+	for key, value in initialValues do
 		self._motors[key] = toMotor(value)
 	end
 
@@ -89,30 +92,30 @@ end
 	@param deltaTime number
 	@return boolean -- Are all sub-motors complete?
 ]=]
-function GroupMotor:step(deltaTime)
+function GroupMotor:Step(deltaTime)
 	if self._complete then
 		return true
 	end
 
 	local allMotorsComplete = true
 
-	for _, motor in pairs(self._motors) do
-		local complete = motor:step(deltaTime)
+	for _, motor in self._motors do
+		local complete = motor:Step(deltaTime)
 		if not complete then
 			-- If any of the sub-motors are incomplete, the group motor will not be complete either
 			allMotorsComplete = false
 		end
 	end
 
-	self._onStep:fire(self:getValue())
+	self._onStep:Fire(self:GetValue())
 
 	if allMotorsComplete then
 		if self._useImplicitConnections then
-			self:stop()
+			self:Stop()
 		end
 
 		self._complete = true
-		self._onComplete:fire()
+		self._onComplete:Fire()
 	end
 
 	return allMotorsComplete
@@ -124,19 +127,19 @@ end
 	@param goals GroupMotorGoals
 	@return nil
 ]=]
-function GroupMotor:setGoal(goals)
-	assert(not goals.step, "goals contains disallowed property \"step\". Did you mean to put a table of goals here?")
+function GroupMotor:SetGoal(goals)
+	assert(not goals.step, 'goals contains disallowed property "step". Did you mean to put a table of goals here?')
 
 	self._complete = false
-	self._onStart:fire()
+	self._onStart:Fire()
 
-	for key, goal in pairs(goals) do
+	for key, goal in goals do
 		local motor = assert(self._motors[key], ("Unknown motor for key %s"):format(key))
-		motor:setGoal(goal)
+		motor:SetGoal(goal)
 	end
 
 	if self._useImplicitConnections then
-		self:start()
+		self:Start()
 	end
 end
 
@@ -145,11 +148,11 @@ end
 
 	@return GroupMotorValues
 ]=]
-function GroupMotor:getValue()
+function GroupMotor:GetValue()
 	local values = {}
 
-	for key, motor in pairs(self._motors) do
-		values[key] = motor:getValue()
+	for key, motor in self._motors do
+		values[key] = motor:GetValue()
 	end
 
 	return values

@@ -5,8 +5,8 @@ return function()
 	it("should assign new state on step", function()
 		local motor = SingleMotor.new(0, false)
 
-		motor:setGoal(Instant.new(5))
-		motor:step(1/60)
+		motor:SetGoal(Instant.new(5))
+		motor:Step(1 / 60)
 
 		expect(motor._state.complete).to.equal(true)
 		expect(motor._state.value).to.equal(5)
@@ -16,12 +16,12 @@ return function()
 		local motor = SingleMotor.new(0, false)
 
 		local didComplete = false
-		motor:onComplete(function()
+		motor:OnComplete(function()
 			didComplete = true
 		end)
 
-		motor:setGoal(Instant.new(5))
-		motor:step(1/60)
+		motor:SetGoal(Instant.new(5))
+		motor:Step(1 / 60)
 
 		expect(didComplete).to.equal(true)
 	end)
@@ -30,15 +30,15 @@ return function()
 		local motor = SingleMotor.new(0, false)
 
 		local bool = false
-		motor:onStart(function()
+		motor:OnStart(function()
 			bool = not bool
 		end)
 
-		motor:setGoal(Instant.new(5))
+		motor:SetGoal(Instant.new(5))
 
 		expect(bool).to.equal(true)
 
-		motor:setGoal(Instant.new(5))
+		motor:SetGoal(Instant.new(5))
 
 		expect(bool).to.equal(false)
 	end)

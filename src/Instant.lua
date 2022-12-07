@@ -21,7 +21,7 @@ end
 --[=[
 	Returns a complete MotorState with `value` set to `targetValue`.
 ]=]
-function Instant:step()
+function Instant:Step()
 	return {
 		complete = true,
 		value = self._targetValue,

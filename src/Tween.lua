@@ -23,11 +23,11 @@ function Tween.new(targetValue: number, tweenInfo: TweenInfo?)
 	local tweenObject = Instance.new("NumberValue")
 
 	local tweenProperties: TweenProperties = {
-		_TweenObject = tweenObject;
-		_Tween = TweenService:Create(tweenObject, tweenInfo or TWEEN_DEFAULT, {Value = targetValue});
+		_TweenObject = tweenObject,
+		_Tween = TweenService:Create(tweenObject, tweenInfo or TWEEN_DEFAULT, { Value = targetValue }),
 
-		_TargetValue = targetValue;
-		_InitialValue = false;
+		_TargetValue = targetValue,
+		_InitialValue = false,
 	}
 
 	return setmetatable(tweenProperties, Tween)
@@ -38,15 +38,15 @@ function Tween:Step(state, delta)
 	local tweenObject = self._TweenObject
 	local playbackState = tween.PlaybackState
 
-	if (not self._InitialValue) then
+	if not self._InitialValue then
 		self._InitialValue = state.value
 		tweenObject.Value = self._InitialValue
 	end
 
-	if (playbackState == TWEEN_BEGIN or playbackState == TWEEN_PAUSED) then
+	if playbackState == TWEEN_BEGIN or playbackState == TWEEN_PAUSED then
 		tweenObject.Value = state.value
 		tween:Play()
-	elseif (playbackState == TWEEN_COMPLETED) then
+	elseif playbackState == TWEEN_COMPLETED then
 		tweenObject:Destroy()
 		tween:Destroy()
 
@@ -59,13 +59,15 @@ function Tween:Step(state, delta)
 		self._InitialValue = nil
 	end
 
-	while (self._InitialValue and tweenObject.Value == state.value) do task.wait() end
+	while self._InitialValue and tweenObject.Value == state.value do
+		task.wait()
+	end
 
 	tween:Pause()
 
 	return {
-		complete = playbackState == TWEEN_COMPLETED;
-		value = tweenObject.Value;
+		complete = playbackState == TWEEN_COMPLETED,
+		value = tweenObject.Value,
 	}
 end
 
