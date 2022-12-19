@@ -21,7 +21,7 @@ Linear.__index = Linear
 ]=]
 
 export type LinearOptions = {
-	velocity: number?,
+	Velocity: number?,
 }
 
 function Linear.new(targetValue: number, options: LinearOptions?)
@@ -32,7 +32,7 @@ function Linear.new(targetValue: number, options: LinearOptions?)
 
 	return setmetatable({
 		_targetValue = targetValue,
-		_velocity = options.velocity or 1,
+		_velocity = options.Velocity or 1,
 	}, Linear)
 end
 

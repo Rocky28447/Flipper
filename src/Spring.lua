@@ -27,8 +27,8 @@ Spring.__index = Spring
 ]=]
 
 export type SpringOptions = {
-	frequency: number?,
-	dampingRatio: number?,
+	Frequency: number?,
+	DampingRatio: number?,
 }
 
 function Spring.new(targetValue: number, options: SpringOptions?)
@@ -38,8 +38,8 @@ function Spring.new(targetValue: number, options: SpringOptions?)
 
 	return setmetatable({
 		_targetValue = targetValue,
-		_frequency = options.frequency or 4,
-		_dampingRatio = options.dampingRatio or 1,
+		_frequency = options.Frequency or 4,
+		_dampingRatio = options.DampingRatio or 1,
 	}, Spring)
 end
 
