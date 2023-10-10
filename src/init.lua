@@ -6,6 +6,7 @@ local Flipper = {
 	Linear = require(script.Linear),
 	Spring = require(script.Spring),
 	Tween = require(script.Tween),
+	ImpulseSpring = require(script.ImpulseSpring),
 
 	isMotor = require(script.isMotor),
 }
@@ -17,6 +18,7 @@ export type Instant = typeof(Flipper.Instant.new(0))
 export type Linear = typeof(Flipper.Linear.new(0))
 export type Spring = typeof(Flipper.Spring.new(0))
 export type Tween = typeof(Flipper.Tween.new(0))
+export type ImpulseSpring = typeof(Flipper.ImpulseSpring.new(0))
 
 return Flipper :: {
 	SingleMotor: SingleMotor,
@@ -25,4 +27,5 @@ return Flipper :: {
 	Linear: Linear,
 	Spring: Spring,
 	Tween: Tween,
+	ImpulseSpring: ImpulseSpring,
 }
